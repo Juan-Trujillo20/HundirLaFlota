@@ -9,7 +9,6 @@ import { Barco } from '../../models/Barco';
   styleUrl: './body-component.component.sass'
 })
 export class BodyComponentComponent {
-
   barcos = new Array<Barco>();
 constructor(){
   this.barcos = [
