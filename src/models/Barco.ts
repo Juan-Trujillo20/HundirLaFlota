@@ -2,15 +2,15 @@ export class Barco{
     tamano: number;
     tocado: number;
     hundido: boolean;
-    coordenada: [];
+    coordenadas: [][];
 
     constructor(tamano: number,
         tocado: number,
         hundido: boolean,
-        coordenada: []){
+        coordenadas: [][]){
             this.tamano = tamano;
             this.tocado = tocado;
             this.hundido = hundido;
-            this.coordenada = coordenada;
+            this.coordenadas = coordenadas;
         }
 }
