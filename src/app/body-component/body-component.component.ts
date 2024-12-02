@@ -73,7 +73,7 @@ disparo( j:number, i:number) {
       if(!tocado){
         this.tablero[j][i].disparo = true;
         this.tablero[j][i].tocado = false;
-        this.tablero[j][i].url = "img\\casilla_vacia.png";
+        this.tablero[j][i].url = "img\\agua.png";
       }
 
       if(this.numeroCoordenadas===this.numeroTocados){
