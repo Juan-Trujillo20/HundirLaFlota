@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Barco } from '../../models/Barco';
 import { Tablero } from '../../models/Tablero';
 import { Coordenadas } from '../../models/Coordenadas';
+import { get } from 'node:http';
 
 
 @Component({
@@ -12,6 +13,10 @@ import { Coordenadas } from '../../models/Coordenadas';
   styleUrl: './body-component.component.sass'
 })
 export class BodyComponentComponent {
+
+  numeroTocados:number = 0;
+  numeroCoordenadas:number = 6;
+
   barcos = new Array<Barco>();
   tablero:Tablero[][] = [[new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
                          [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
@@ -47,9 +52,35 @@ constructor(){
   ]
 }
 
-disparo( i:number, j:number) {
+disparo( j:number, i:number) {
+  var tocado:boolean = false;
   console.log(i + " " + j);
-  this.tablero[i][j].url="img\\casilla.png";
+  if(this.numeroCoordenadas!==this.numeroTocados){
+    if(!this.tablero[j][i].disparo){
+      for(let a:number= 0; a<this.barcos.length; a++){
+        for(let b:number=0; b<this.barcos[a].coordenadas.length; b++){
+          
+          if((this.barcos[a].coordenadas[b].x===i && this.barcos[a].coordenadas[b].y===j)){
+            tocado = true
+            this.tablero[j][i].disparo = true;
+            this.tablero[j][i].tocado = true;
+            this.tablero[j][i].url = "img\\casilla.png";
+            this.numeroTocados++;
+          }
+        }
+      }
+
+      if(!tocado){
+        this.tablero[j][i].disparo = true;
+        this.tablero[j][i].tocado = false;
+        this.tablero[j][i].url = "img\\casilla_vacia.png";
+      }
+
+      if(this.numeroCoordenadas===this.numeroTocados){
+        alert("HAS GANADO");
+      }
+    }
+  }
+}
 }
 
-}
