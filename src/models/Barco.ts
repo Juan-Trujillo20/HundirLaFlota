@@ -2,8 +2,6 @@ import { Coordenadas } from "./Coordenadas";
 
 export class Barco{
     tamano: number;
-    tocado: number;
-    hundido: boolean;
     coordenadas: Coordenadas[];
     orientacion: string;
     x:number;
@@ -55,21 +53,4 @@ export class Barco{
     setOrientacion(orientacion:string){
         this.orientacion=orientacion;
     }
-import { Coordenadas } from "./Coordenadas";
-
-export class Barco{
-    tamano: number;
-    tocado: number;
-    hundido: boolean;
-    coordenadas: Coordenadas[];
-
-    constructor(tamano: number,
-        tocado: number,
-        hundido: boolean,
-        coordenadas: Coordenadas[]){
-            this.tamano = tamano;
-            this.tocado = tocado;
-            this.hundido = hundido;
-            this.coordenadas = coordenadas;
-        }
 }
