@@ -2,54 +2,61 @@ import { Component } from '@angular/core';
 import { Barco } from '../../models/Barco';
 import { Tablero } from '../../models/Tablero';
 import { Coordenadas } from '../../models/Coordenadas';
-import { get } from 'node:http';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+
 
 
 @Component({
   selector: 'app-body-component',
   standalone: true,
-  imports: [],
+  imports: [NgIf, FormsModule],
   templateUrl: './body-component.component.html',
   styleUrl: './body-component.component.sass'
 })
 export class BodyComponentComponent {
+[x: string]: any;
 
+  ship:Barco=new Barco(0,1,1,"",[]);
   numeroTocados:number = 0;
-  numeroCoordenadas:number = 6;
-
+  numeroCoordenadas:number = 0;
+  general:boolean= true;
   barcos = new Array<Barco>();
-  tablero:Tablero[][] = [[new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero],
-                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero]];
-  
+  nuevoBarco= [];
+  tablero:Tablero[][] = [[new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero],
+                         [new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero,new Tablero, new Tablero, new Tablero, new Tablero]];
+
 constructor(){
+}
+volverGeneral(){
+  this.general=true
+}
+crearBarco(){
+  this.general=false;
+}
+onSubmit(){
+  this.ship;
+  this.barcos.push(new Barco(this.ship.tamano,this.ship.x,this.ship.y,this.ship.orientacion,[]));
+  for(var i=0; i<this.barcos.length;i++){
+    console.log(this.barcos[i])
+  }
 
-  var coordenada1:Coordenadas =  new Coordenadas(1, 2);
-  var coordenada2:Coordenadas =  new Coordenadas(2, 2);
+  this.numeroCoordenadas = this.numeroCoordenadas + this.ship.tamano;
 
-  var coordenada3:Coordenadas =  new Coordenadas(5, 3);
-  var coordenada4:Coordenadas =  new Coordenadas(5, 4);
-  var coordenada5:Coordenadas =  new Coordenadas(5, 5);
-
-  var coordenada6:Coordenadas =  new Coordenadas(3, 3);
-
-  var coordenadasBarco2:Coordenadas[] = [coordenada1,coordenada2];
-  var coordenadasBarco3:Coordenadas[] = [coordenada3,coordenada4,coordenada5];
-  var coordenadasBarco1:Coordenadas[] = [coordenada6];
-  
-  this.barcos = [
-    {tamano:3, tocado:0, hundido:false, coordenadas:coordenadasBarco3},
-    {tamano:2, tocado:0, hundido:true, coordenadas:coordenadasBarco2},
-    {tamano:1, tocado:0, hundido:false, coordenadas:coordenadasBarco1},
-  ]
+  this.ship.x=0;
+  this.ship.y=0;
+  this.ship.orientacion="";
+  this.ship.tamano=0;
 }
 
 disparo( j:number, i:number) {
